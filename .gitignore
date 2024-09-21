@@ -35,7 +35,7 @@
 *.jar
 
 # Folders
-antlr4_runtime/
-.build/
-dist/
-.vscode/
+spreadsheet/antlr4_runtime/*
+spreadsheet/build/*
+spreadsheet/dist/*
+spreadsheet/.vscode/*
