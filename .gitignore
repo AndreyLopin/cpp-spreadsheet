@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Java files
+*.jar
+
+# Folders
+antlr4_runtime/
+.build/
+dist/
+.vscode/

@@ -7,6 +7,8 @@
 #include <functional>
 #include <stdexcept>
 
+using SheetArgs = std::function<double(Position)>;
+
 namespace ASTImpl {
 class Expr;
 }
@@ -23,7 +25,7 @@ public:
     FormulaAST& operator=(FormulaAST&&) = default;
     ~FormulaAST();
 
-    double Execute(/*добавьте нужные аргументы*/ args) const;
+    double Execute(const SheetArgs& args) const;
     void PrintCells(std::ostream& out) const;
     void Print(std::ostream& out) const;
     void PrintFormula(std::ostream& out) const;
@@ -35,13 +37,9 @@ public:
     const std::forward_list<Position>& GetCells() const {
         return cells_;
     }
-
 private:
     std::unique_ptr<ASTImpl::Expr> root_expr_;
 
-    // physically stores cells so that they can be
-    // efficiently traversed without going through
-    // the whole AST
     std::forward_list<Position> cells_;
 };
 
