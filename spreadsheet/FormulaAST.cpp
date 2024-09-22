@@ -144,18 +144,22 @@ public:
 
     double Evaluate(const SheetArgs& args) const override {
         double result = 0.0;
+
+        double l_operand = lhs_->Evaluate(args);
+        double r_operand = rhs_->Evaluate(args);
+
         switch (type_) {
             case Add:
-                result = lhs_->Evaluate(args) + rhs_->Evaluate(args);
+                result = l_operand + r_operand;
                 break;
             case Subtract:
-                result = lhs_->Evaluate(args) - rhs_->Evaluate(args);
+                result = l_operand - r_operand;
                 break;
             case Multiply:
-                result = lhs_->Evaluate(args) * rhs_->Evaluate(args);
+                result = l_operand * r_operand;
                 break;
             case Divide:
-                result = lhs_->Evaluate(args) / rhs_->Evaluate(args);
+                result = l_operand / r_operand;
                 break;
         }
 
@@ -201,15 +205,10 @@ public:
     }
 
     double Evaluate(const SheetArgs& args) const override {
-        switch (type_)
-        {
-            case Type::UnaryMinus:
-                return operand_.get()->Evaluate(args) * (-1);
-                break;
-            case Type::UnaryPlus:
-                return operand_.get()->Evaluate(args);
-                break;
+        if(type_ == UnaryMinus) {
+            return operand_.get()->Evaluate(args) * (-1);
         }
+
         return operand_.get()->Evaluate(args);
     }
 
